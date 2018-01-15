@@ -54,4 +54,85 @@ function verification($login, $mdp) {
     return $resultat;
 }
 
+
+function creerArticle($article_titre, $article_contenu, $idUtilisateur) {
+    $reussi = false;
+    $pdo = gestionnaireDeConnexion();
+    if ($pdo != null) {
+        $article_titre  = $pdo->quote($article_titre);
+        $article_contenu = $pdo->quote($article_contenu);
+        $idUtilisateur = $pdo->quote($idUtilisateur);
+
+        $req = "insert into Article values (null, $article_titre, $article_contenu, NOW(), $idUtilisateur)";
+
+        $resultat = $pdo->exec($req);
+        if ($resultat == 1) {
+            $reussi = true;
+        }
+    }
+    return $reussi;
+}
+
+function listeArticles(){
+    $lesArticles = array();
+    $pdo = gestionnaireDeConnexion();
+   if($pdo != null){
+       $req = "select * from Article, Utilisateur where Article.idUtilisateur = Utilisateur.idUtilisateur order by dateArticle DESC";
+       $pdoStatement = $pdo->query($req);
+       $lesArticles = $pdoStatement->fetchAll(PDO::FETCH_ASSOC) ;
+   } 
+   return $lesArticles;
+}
+
+
+function lireArticle($codeArticle) {
+    $detailArticle = null;
+    $pdo = gestionnaireDeConnexion();
+    if ($pdo != null) {
+        $codeArticle = $pdo->quote($codeArticle);
+        $req = "select * from Article, Utilisateur where codeArticle= $codeArticle and Article.idUtilisateur = Utilisateur.idUtilisateur ";
+        $resultat = $pdo->query($req);
+        $detailArticle = $resultat->fetch();
+    }
+    return $detailArticle;
+}
+
+
+function modifierEtablissement($id, $nom, $adresseRue, $codePostal, $ville, $tel, $adresseElectronique, $type, $civiliteResponsable, $nomResponsable, $prenomResponsable, $nombreChambresOffertes) {
+
+    $modification = false;
+    $pdo = gestionnaireDeConnexion();
+
+    if ($pdo != null) {
+        $id = $pdo->quote($id);
+        $nom = $pdo->quote($nom);
+        $adresseRue = $pdo->quote($adresseRue);
+        $codePostal = $pdo->quote($codePostal);
+        $ville = $pdo->quote($ville);
+        $tel = $pdo->quote($tel);
+        $adresseElectronique = $pdo->quote($adresseElectronique);
+        $type = $pdo->quote($type);
+        $civiliteResponsable = $pdo->quote($civiliteResponsable);
+        $nomResponsable = $pdo->quote($nomResponsable);
+        $prenomResponsable = $pdo->quote($prenomResponsable);
+        $nombreChambresOffertes = $pdo->quote($nombreChambresOffertes);
+
+        $req = "update etablissement set nom=$nom,adresseRue=$adresseRue,
+		codePostal=$codePostal,ville=$ville,tel=$tel,
+		adresseElectronique=$adresseElectronique,type=$type,
+		civiliteResponsable=$civiliteResponsable,nomResponsable=
+		$nomResponsable,prenomResponsable=$prenomResponsable,
+		nombreChambresOffertes=$nombreChambresOffertes where id=$id";
+
+        $resultat = $pdo->exec($req);
+        if ($resultat == 1) {
+            $modification = true;
+        }
+    }
+
+    return $modification;
+}
+
+
+
 ?>

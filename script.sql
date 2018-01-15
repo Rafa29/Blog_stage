@@ -17,16 +17,16 @@ codeArticle smallint unsigned not null AUTO_INCREMENT,
 titre varchar(255),
 article text,
 dateArticle date,
-idUtilisateurs smallint,
+idUtilisateur smallint,
 PRIMARY KEY (codeArticle),
-FOREIGN KEY (idUtilisateurs) REFERENCES Utilisateur (idUtilisateur)
+FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur (idUtilisateur)
 );
 
 create table Commentaire(
 codeCommentaire smallint unsigned not null AUTO_INCREMENT,
 commentaire text,
 dateCommentaire date,
-idUtilisateurs smallint,
+idUtilisateur smallint,
 PRIMARY KEY (codeCommentaire),
-FOREIGN KEY (idUtilisateurs) REFERENCES Utilisateur (idUtilisateur)
+FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur (idUtilisateur)
 );

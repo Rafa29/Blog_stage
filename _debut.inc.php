@@ -13,8 +13,8 @@ if (isset($_SESSION["login"])) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>HOME</title>
-        <meta name="description" content="An interactive getting started guide for Brackets.">
+        <title>Blog</title>
+        <meta charset="utf-8" name="description" content="An interactive getting started guide for Brackets.">
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/style.css"> 
         <link rel="stylesheet" href="css/fontawesome-all.min.css"></head>
@@ -30,8 +30,9 @@ if (isset($_SESSION["login"])) {
                         </li>
                     <?php endif; ?>
                     <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="inscription.php">Inscription</a></li>
                     <li><a href="connexion.php">Connexion</a></li>
-                    <li><a href="#">Page 2</a></li>
+                    <li><a href="redaction_article.php">Rédaction</a></li>
                     
                     <?php if ($connecte == true): ?>
                         <li> 
@@ -42,4 +43,3 @@ if (isset($_SESSION["login"])) {
                 </ul>
             </div>
         </nav>
-    </body>
